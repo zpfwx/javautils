@@ -25,6 +25,7 @@ package com.myutil.ip;
 import java.util.Arrays;
 
 public class IpAddress {
+    public enum IPClass {CLASS_A, CLASS_B, CLASS_C, INVALID}
     public static final IpAddress LOCAL_HOST_IP = new IpAddress(
             new byte[]{127, 0, 0, 1});
     public static final IpAddress UNSET_IP = new IpAddress(
@@ -187,5 +188,5 @@ public class IpAddress {
         return AddressUtils.ip2string(hostIP);
     }
 
-    public enum IPClass {CLASS_A, CLASS_B, CLASS_C, INVALID}
+
 }

@@ -454,7 +454,7 @@ public class AddressUtils {
 //        }
 //        return pairs;
 //    }
-
+/*
     public static SocketAddress createSocketAddress(DestAddress address) throws IOException {
         try {
             InetAddress inetAddress;
@@ -469,5 +469,5 @@ public class AddressUtils {
         } catch (UnknownHostException exp) {
             throw new IOException("Can't resolve address.");
         }
-    }
+    }*/
 }
