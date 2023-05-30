@@ -1,9 +1,10 @@
 package com.myutil;
 
-import cn.hutool.core.date.DateUtil;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.apache.http.client.utils.DateUtils;
 
 import java.time.*;
 import java.util.Calendar;
@@ -32,7 +33,8 @@ public class TimezoneUtils {
 		try {
 			Calendar calendar = Calendar.getInstance();  
 			calendar.setTime(source);  
-			String timezone = LoginInfoHolder.timezone();
+			//String timezone = LoginInfoHolder.timezone();
+			String timezone="";
 			if(!StringUtils.isBlank(timezone)){
 				// 将时间偏移量(浮点型)转化为秒(整形)
 				Double timezoneInt = (Double.valueOf(timezone) *100) * 36;
@@ -61,12 +63,14 @@ public class TimezoneUtils {
 		try {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(source);
-			String timezone = LoginInfoHolder.timezone();
+			//String timezone = LoginInfoHolder.timezone();
+			String timezone="";
 			if(!StringUtils.isBlank(timezone)){
 				// 将时间偏移量(浮点型)转化为秒(整形)
 				Double timezoneInt = (Double.valueOf(timezone) *100) * 36;
 				calendar.add(Calendar.SECOND, timezoneInt.intValue());
-				return DateUtil.format(calendar.getTime(),"yyyy-MM-dd");
+				//return DateUtils.format(calendar.getTime(),"yyyy-MM-dd");
+				return DateUtils.formatDate(calendar.getTime(),"yyyy-MM-dd");
 			}
 		} catch (NumberFormatException e) {
 			log.error("timeZone convert exception source :{},reason:{}",source,e);
@@ -188,7 +192,9 @@ public class TimezoneUtils {
 	 * @Date 2020/11/25 15:19
 	 */
 	public static LocalDateTime getDateOffSetFromLocalDateTimeNow(String offset){
-		offset = StringUtils.isBlank(offset) ? TimezoneUtils.convertTimeZoneOffset(LoginInfoHolder.timezone()) : offset;
+		//String timezone = LoginInfoHolder.timezone();
+		String timezone="";
+		offset = StringUtils.isBlank(offset) ? TimezoneUtils.convertTimeZoneOffset(timezone) : offset;
 		LocalDateTime localDateTimeNow = LocalDateTime.now(ZoneId.of(ZERO_OFFSET));
 		return convertLocalDateTimeOffSet(localDateTimeNow,offset);
 	}
@@ -217,7 +223,9 @@ public class TimezoneUtils {
 	 * @Date 2020/11/25 15:19
 	 */
 	public static LocalDateTime convertLocalDateTimeOffSet(LocalDateTime localDateTime,String offset)  {
-		offset = StringUtils.isBlank(offset) ? TimezoneUtils.convertTimeZoneOffset(LoginInfoHolder.timezone()) : offset;
+		//String timezone = LoginInfoHolder.timezone();
+		String timezone="";
+		offset = StringUtils.isBlank(offset) ? TimezoneUtils.convertTimeZoneOffset(timezone) : offset;
 		// 先转0时区，然后时间偏移运算
 		return convertLocalDateTime2UTCOffset(localDateTime).atOffset(ZoneOffset.UTC).withOffsetSameInstant(ZoneOffset.of(offset)).toLocalDateTime();
 	}
